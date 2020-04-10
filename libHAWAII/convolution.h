@@ -206,27 +206,6 @@ void HAW_CONV(HAW_LAYER* LAYER){
 							TA2CTL = MC__STOP + TACLR;
 							TA1CTL = MC__STOP + TACLR;
 
-//							MONITOR.FOOTPRINT = (sub_FP_3+ (f_row & 1));
-//							MONITOR.PERIOD = 2;
-//							MONITOR.BATCH  = *MONITOR.FOOTPRINT < 32 ? *MONITOR.FOOTPRINT : 32;;
-//
-//							MONITOR.SA = (LEA_MEMORY + length_out - fp_temp);
-//							MONITOR.DA = ((TEMP_Ptr + (length_out * ( buf_idx + 1 )) - fp_temp ));
-//							if(f_row == PARA->KERNEL_H-1){
-//								MONITOR.DA = ((TEMP_Ptr + (PARA->KERNEL_H+in_ch+1) * length_out) - fp_temp );
-//							}
-//
-//							TA0CCTL0 = CCIE;
-//							RESLO = 0;
-//							MPY = MONITOR.BATCH;
-//							OP2 = MONITOR.PERIOD;
-//							TA0CCR0 = 30 + RESLO;
-//							TA0CTL = TASSEL_2 + ID_0 + MC_1;
-//							__bis_SR_register(GIE+LPM0_bits);
-//							//in case LEA not finish
-//							while(LEACNF1 & LEABUSY__BUSY);
-//							TA0CCTL0 = 0;
-//							TA0CTL = TACLR ;
 
 						}
 						sub_FP_3[(f_row & 0x0001)]=0;
@@ -312,24 +291,6 @@ void HAW_CONV(HAW_LAYER* LAYER){
 						TA2CTL = MC__STOP + TACLR;
 						TA1CTL = MC__STOP + TACLR;
 
-//						MONITOR.FOOTPRINT = (sub_FP_3+ (in_ch & 1));
-//						MONITOR.PERIOD = 2;
-//						MONITOR.BATCH  = *MONITOR.FOOTPRINT < 32 ? *MONITOR.FOOTPRINT : 32;;
-//						MONITOR.SA = (LEA_MEMORY + length_out - fp_temp);
-//						MONITOR.DA = (TEMP_Ptr + (PARA->KERNEL_H+buf_idx+1) * length_out - fp_temp);
-//
-//						TA0CCTL0 = CCIE;
-//						RESLO = 0;
-//						MPY = MONITOR.BATCH;
-//						OP2 = MONITOR.PERIOD;
-//						TA0CCR0 = 30 + RESLO;
-//						TA0CTL = TASSEL_2 + ID_0 + MC_1;
-//						__bis_SR_register(GIE+LPM0_bits);
-//						//in case LEA not finish
-//						while(LEACNF1 & LEABUSY__BUSY);
-//						TA0CCTL0 = 0;
-//						TA0CTL = TACLR ;
-
 					}
 					sub_FP_3[(in_ch & 0x0001)]=0;
 					sub_FP_3[2]++;
@@ -353,9 +314,6 @@ void HAW_CONV(HAW_LAYER* LAYER){
 				//add bias
 				DMACTL0 = DMA0TSEL__DMAREQ | DMA1TSEL__DMAREQ;
 				DMA0CTL = DMADT_1 + DMADSTINCR_3 + DMASRCINCR_3 ;
-				//int buf_idx = (in_ch + D_IN->CH - 1) % (D_IN->CH+1);
-				//(TEMP_Ptr + (buf_idx+1) * length_out - fp_temp);
-				//(TEMP_Ptr + (PARA->KERNEL_H+buf_idx+1) * length_out - fp_temp);
 				DMA0SA = (TEMP_Ptr + (PARA->KERNEL_H + ((D_IN->CH-1)<<1)%(D_IN->CH-1) + 1 ) * length_out - fp_temp);
 				DMA0DA = ((LEA_MEMORY) +  length_out - fp_temp);
 				DMA0SZ = fp_temp;
@@ -400,23 +358,6 @@ void HAW_CONV(HAW_LAYER* LAYER){
 				TA2CTL = MC__STOP + TACLR;
 				TA1CTL = MC__STOP + TACLR;
 
-//				MONITOR.FOOTPRINT = sub_FP;
-//				MONITOR.PERIOD = 2;
-//				MONITOR.BATCH  = *(MONITOR.FOOTPRINT) < 32 ? *(MONITOR.FOOTPRINT) : 32;;
-//				MONITOR.SA = (LEA_MEMORY + (length_out<<1) + 2 - fp_temp);
-//				MONITOR.DA = (TEMP_Ptr + (PARA->KERNEL_H + 1 ) *length_out - fp_temp);
-//
-//				TA0CCTL0 = CCIE;
-//				RESLO = 0;
-//				MPY = MONITOR.BATCH;
-//				OP2 = MONITOR.PERIOD;
-//				TA0CCR0 = 30 + RESLO;
-//				TA0CTL = TASSEL_2 + ID_0 + MC_1;
-//				__bis_SR_register(GIE+LPM0_bits);
-//				//in case LEA not finish
-//				while(LEACNF1 & LEABUSY__BUSY);
-//				TA0CCTL0 = 0;
-//				TA0CTL = TACLR ;
 
 				msp_lea_freeMemory(sizeof(MSP_LEA_ADDMATRIX_PARAMS)/sizeof(uint32_t));
 			}
