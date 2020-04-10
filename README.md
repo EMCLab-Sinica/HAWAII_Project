@@ -1,4 +1,4 @@
-# HAWAII : Intermittent Deep Neural Netwrok Inference 
+# HAWAII : Hardware Accelerated Intermittent Deep Inference
 
 <!-- ABOUT THE PROJECT -->
 ## Overview
