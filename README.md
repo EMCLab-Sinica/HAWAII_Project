@@ -17,7 +17,7 @@ The footprint variable indicates the current progress of each network/layer-leve
 * [Getting Started](#getting-started)
   * [Prerequisites](#prerequisites)
   * [Setup and Build](#setup-and-build)
-* [Using HAWAII](#using-hawaii)
+
   
 <!--* [Contributing](#contributing)-->
 
@@ -66,7 +66,7 @@ Here is the basic software and hardware you need to build/run the provided examp
 
 Now, the demo project is ready to go. Just launch the demo application by clicking the debug button. In CCS, you can trace how the design work step by step. 
 
-## Using HAWAII
+
 
 
 
