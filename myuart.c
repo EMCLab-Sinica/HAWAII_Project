@@ -8,7 +8,7 @@
 
 // The following structure will configure the EUSCI_A port to run at 9600 baud from an 1~16MHz ACLK
 // The baud rate values were calculated at: http://software-dl.ti.com/msp430/msp430_public_sw/mcu/msp430/MSP430BaudRateConverter/index.html
-EUSCI_A_UART_initParam UartParams[8] = {
+EUSCI_A_UART_initParam UartParams[9] = {
 {//1MHz
     EUSCI_A_UART_CLOCKSOURCE_SMCLK,
     6,                                                                         // clockPrescalar
@@ -89,7 +89,17 @@ EUSCI_A_UART_initParam UartParams[8] = {
    EUSCI_A_UART_ONE_STOP_BIT,
    EUSCI_A_UART_MODE,
    EUSCI_A_UART_OVERSAMPLING_BAUDRATE_GENERATION
-}};
+},{//24MHz 115200
+		   EUSCI_A_UART_CLOCKSOURCE_SMCLK,
+		   13,                                                                        // clockPrescalar
+		   0,                                                                          // firstModReg
+		   37,                                                                        // secondModReg
+		   EUSCI_A_UART_NO_PARITY,
+		   EUSCI_A_UART_LSB_FIRST,
+		   EUSCI_A_UART_ONE_STOP_BIT,
+		   EUSCI_A_UART_MODE,
+		   EUSCI_A_UART_OVERSAMPLING_BAUDRATE_GENERATION
+		}};
 
 
 void _DBGUART(char* format,...)

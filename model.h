@@ -25,7 +25,7 @@
 
 #include"Parameters/fc2.h"
 
-#include"Parameters/input9_(8).h"
+#include"Parameters/_input9_(8).h"
 
 #pragma PERSISTENT(result)
 _q15 result[10]={[0 ... 9]=0};
