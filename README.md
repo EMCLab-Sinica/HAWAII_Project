@@ -9,7 +9,9 @@ HAWAII is a middleware stack for doing inference on energy-harvesting intermitte
 * the recovery handler.
 * the function body. 
 
-The footprint variable indicates the current progress of each network/layer-level operation. The function body is the actual operation in the inference pipeline (e.g., convolution/pooling). The recovery handler performs footprint-aware initialization to correctly resume an interrupted inference task upon power resumption. The footprint monitor works closely with the function body to perform footprint preservation, where it periodically captures the number of completed accelerator/CPU-based sub-operations as the inference execution progresses.
+The footprint variable indicates the current progress of each network/layer-level operation. The function body is the actual operation in the inference pipeline (e.g., convolution/pooling). The recovery handler performs footprint-aware initialization to correctly resume an interrupted inference task upon power resumption. The footprint monitor works closely with the function body to perform footprint preservation, where it periodically captures the number of completed accelerator/CPU-based sub-operations as the inference execution progresses. For more technical details, please refer to our [paper](https://www.citi.sinica.edu.tw/papers/pchsiu/7315-F.pdf).
+
+Demo video on Youtube: https://youtu.be/3YZTnB3v3Sw.
 
 <!-- TABLE OF CONTENTS -->
 ## Table of Contents
