@@ -69,7 +69,15 @@ Here is the basic software and hardware you need to build/run the provided examp
 Now, the demo project is ready to go. Just launch the demo application by clicking the debug button. In CCS, you can trace how the design work step by step. 
 
 
+## Contributors
 
+This project is co-led by Dr. Pi-Cheng Hsiu (Academia Sinica) and Dr. Ming-Syan Chen (National Taiwan University). Listed below are the contributors.
+
+Chih-Kai Kang (Academia Sinica & National Taiwan University),
+Hashan Roshantha Mendis (Academia Sinica),
+Chun-Han Lin (National Taiwan Normal University)
+Pi-Cheng Hsiu (Academia Sinica),
+Ming-Syan Chen (National Taiwan University)
 
 
 
