@@ -3,8 +3,10 @@
 #define HEADERS_CONVOLUTION_H_
 
 #include "DSPLib.h"
+#include "myuart.h"
 
 void HAW_CONV(HAW_LAYER* LAYER);
+
 
 void HAW_CONV(HAW_LAYER* LAYER){
 
@@ -33,12 +35,17 @@ void HAW_CONV(HAW_LAYER* LAYER){
 
 	out_ch = LAYER->FOOTPRINT / (D_IN->CH * 2 + 4);
 	in_ch  = LAYER->FOOTPRINT % (D_IN->CH * 2 + 4);
+	in_ch = in_ch >=  2*D_IN->CH ? in_ch - D_IN->CH : in_ch/2 ;
+
+
+
 
 	for(; out_ch < D_OUT->CH; out_ch++){
 		for(; in_ch < D_IN->CH; in_ch++){
 
 			//==========for each kernel row===============//
 			if(!(LAYER->FOOTPRINT & 0x0001)){
+
 				volatile uint16_t *sub_FP_3 = LAYER->SUB_FOOTPRINT[0];
 				f_row = *(sub_FP_3 + 2);
 				fp_temp = 0;
@@ -122,7 +129,6 @@ void HAW_CONV(HAW_LAYER* LAYER){
 			}
 			//sum each 1D kernel's results
 			if((LAYER->FOOTPRINT & 0x0001)){
-
 				volatile uint16_t *sub_FP_3 = LAYER->SUB_FOOTPRINT[1];
 				MSP_LEA_ADDMATRIX_PARAMS *lea_ADD_Params;
 				f_row = 0;
@@ -222,7 +228,6 @@ void HAW_CONV(HAW_LAYER* LAYER){
 
 		}
 		if(in_ch == D_IN->CH ){
-
 			volatile uint16_t *sub_FP_3 = LAYER->SUB_FOOTPRINT[0];
 			if(in_ch){
 
@@ -305,6 +310,7 @@ void HAW_CONV(HAW_LAYER* LAYER){
 			in_ch++;
 		}
 		if(in_ch == D_IN->CH +1){
+
 			volatile uint16_t *sub_FP = LAYER->SUB_FOOTPRINT[1];
 			_q15 *BAIS_Ptr = PARA->BIAS;
 			uint16_t fp_temp = *sub_FP;
@@ -405,6 +411,7 @@ void HAW_CONV(HAW_LAYER* LAYER){
 			in_ch++;
 		}
 		if(in_ch == D_IN->CH +3){
+
 			LAYER->SUB_FOOTPRINT[0][0] = reset_out;
 			LAYER->SUB_FOOTPRINT[0][1] = reset_out;
 			LAYER->SUB_FOOTPRINT[0][2] = 0;
