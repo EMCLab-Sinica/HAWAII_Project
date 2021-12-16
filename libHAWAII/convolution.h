@@ -419,9 +419,9 @@ void HAW_CONV(HAW_LAYER* LAYER){
 			for(;h<D_OUT->H;h++){
 				for(;w<D_OUT->W;w++){
 					_q15 tmp=*(LEA_BUFFER_Ptr+ h *  D_IN->W + w);
-//					tmp = tmp >> 2;
-//					tmp = tmp > _Q15(0.25)? _Q15(0.25) : tmp;
-//					tmp = tmp < _Q15(-0.25)? _Q15(-0.25) : tmp;
+					tmp = tmp >> 2;
+//					tmp = tmp > _Q15(0.06)? _Q15(0.06) : tmp;
+//					tmp = tmp < _Q15(-0.06)? _Q15(-0.06) : tmp;
 					D_OUT_Ptr[out_ch * (D_OUT->H * D_OUT->W) +h *  D_OUT->W + w] = tmp;
 					sub_FP[0]++;
 				}

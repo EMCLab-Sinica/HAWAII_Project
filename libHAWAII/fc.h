@@ -51,7 +51,7 @@ void HAW_FC(HAW_LAYER* LAYER){
 	    _q15 tmp = *(LEA_BUFFER2_Ptr+length) + *(BIAS_Ptr + c );
 	    //Activation
 	    tmp = tmp >> 2;
-	    *(D_OUT_Ptr+c) = tmp  < 0 ? 0 : tmp ;
+	    *(D_OUT_Ptr+c) = tmp < 0 ? 0 : tmp ;
 
 	    LAYER->FOOTPRINT++;
 
