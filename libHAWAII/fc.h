@@ -30,7 +30,7 @@ void HAW_FC(HAW_LAYER* LAYER){
 	__bis_SR_register(GIE+LPM0_bits);
     /* Allocate MSP_LEA_MAC_PARAMS structure. */
     leaParams = (MSP_LEA_MAC_PARAMS *)msp_lea_allocMemory(sizeof(MSP_LEA_MAC_PARAMS)/sizeof(uint32_t));
-
+//    c=0;
 	for(c = LAYER->FOOTPRINT ; c < D_OUT->CH ; c++){
 		DMA0CTL = DMADT_1 + DMADSTINCR_3 + DMASRCINCR_3 ;
 		DMA0SA = (WEIGHT_Ptr + c * length);
@@ -56,6 +56,7 @@ void HAW_FC(HAW_LAYER* LAYER){
 	    LAYER->FOOTPRINT++;
 
 	}
+
     /* Free MSP_LEA_MAC_PARAMS structure. */
     msp_lea_freeMemory(sizeof(MSP_LEA_MAC_PARAMS)/sizeof(uint32_t));
 }

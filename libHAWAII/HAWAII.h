@@ -1,5 +1,7 @@
-#ifndef HEADERS_HAWAII_H_
-#define HEADERS_HAWAII_H_
+
+#ifndef LIBHAWAII_HAWAII_H_
+#define LIBHAWAII_HAWAII_H_
+
 #define LEA_STACK 200
 
 
@@ -7,7 +9,7 @@ DSPLIB_DATA(LEA_MEMORY,4)
 _q15 LEA_MEMORY[2048-LEA_STACK];
 
 _q15 FC_BUFF[900];
-#pragma location = 0x1228C
+#pragma location = 0x12284
 #pragma PERSISTENT(CONV_BUFF)
 _q15 CONV_BUFF[25][24][28]={[0 ... 24][0 ... 23][0 ... 27] = 0xffff};
 
@@ -25,12 +27,12 @@ HAW_MONITOR MONITOR;
 
 
 #include "driverlib.h"
-
 #include "DSPLib.h"
 #include "libHAWAII/footprinting.h"
 #include "libHAWAII/nonlinear.h"
 #include "libHAWAII/fc.h"
 #include "libHAWAII/convolution.h"
+#include "myuart.h"
 #include <stdlib.h>
 
 
@@ -38,7 +40,7 @@ HAW_MONITOR MONITOR;
 void HAW_INFERENCE(HAW_NETWORK *net){
 
 	int i;
-
+//	_DBGUART("L : %d\r\n",net->FOOTPRINT);
 	for(i = net->FOOTPRINT ; i < net->TOTAL_LAYERS ; i++){
 
 
@@ -50,7 +52,10 @@ void HAW_INFERENCE(HAW_NETWORK *net){
 		LAYER->fun(LAYER);
 
 		net->FOOTPRINT++;
+//		_no_operation();
+
 	}
+//	net->FOOTPRINT=0;
 	net->FOOTPRINT=0;
 }
 
@@ -81,6 +86,4 @@ __interrupt void DMA_ISR(void)
   }
 }
 
-
-#endif /* HEADERS_HAWAII_H_ */
-//}
+#endif /* LIBHAWAII_HAWAII_H_ */

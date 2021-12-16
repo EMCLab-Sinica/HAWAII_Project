@@ -40,7 +40,7 @@ int boardSetup(){
     uartsetup=0;
     setFrequency(8);
     CS_initClockSignal( CS_SMCLK, CS_DCOCLK_SELECT, CS_CLOCK_DIVIDER_1 );
-    //uartinit();
+    uartinit();
     /* clock setup */
 
     // Configure one FRAM waitstate as required by the device datasheet for MCLK

@@ -54,46 +54,34 @@ void HAW_POOL(HAW_LAYER* LAYER){
 		_q15 *D_IN_Ptr = D_IN->DATA;
 		_q15 *D_OUT_Ptr = D_OUT->DATA;
 		_q15 *LEA_BUFFER_Ptr = LEA_MEMORY;
+		uint16_t cnt_t=0;
 		ks_w = PARA->KERNEL_W;
 		ks_h= PARA->KERNEL_H;
-		c = LAYER->FOOTPRINT / ((D_IN->H * D_IN->W)/(ks_w*ks_h));
-		temp = LAYER->FOOTPRINT % ((D_IN->H * D_IN->W)/(ks_w*ks_h));
-		h = (temp / (D_IN->W / ks_w)) * ks_h;
-		w = (temp % (D_IN->W / ks_w)) * ks_h;
 
-		for(; c < D_IN->CH ; c++){
-			//Load data from last attempt
-			DMA0CTL = DMADT_1 + DMADSTINCR_3 + DMASRCINCR_3 ;
-			DMA0SA = (D_IN_Ptr+c * D_IN->H * D_IN->W +
-				      h * D_IN->W +
-					  w );
-			DMA0DA = (LEA_BUFFER_Ptr + temp);
-			DMA0SZ = (D_IN->H * D_IN->W) - temp;
-			DMA0CTL |= DMAEN__ENABLE + DMAREQ;
 
-			for( ;h<D_IN->H;h+=ks_h){
-				for(;w<D_IN->W;w+=ks_w){
-					// pooling sub-op
-					_q15 max;
-					max = *(LEA_BUFFER_Ptr+ h*D_IN->W + w);
-					for(k1 = h ; k1 < h + ks_h ; k1++){
-						for(k2 = w ; k2 < w + ks_w ; k2++){
-							_q15 t = *(LEA_BUFFER_Ptr+k1*D_IN->W+k2);
-							max = max > t ? max : t;
-						}
-					}
+		c = LAYER->FOOTPRINT / (D_OUT->H * D_OUT->W * D_OUT->CH);
+		temp = LAYER->FOOTPRINT % (D_OUT->H * D_OUT->W * D_OUT->CH);
+		h = temp / D_OUT->W;
+		w = temp % D_OUT->W;
+
+		for(; c < D_OUT->CH ; c++){
+			for( ;h<D_OUT->H;h++){
+				for(;w<D_OUT->W;w++){
+					_q15 max=0;
+					for(k1 = 0 ; k1 < ks_h ; k1++){
+					for(k2 = 0 ; k2 < ks_w ; k2++){
+						_q15 t = D_IN_Ptr[c * D_IN->H*D_IN->W + (h * ks_h + k1)*D_IN->W  + w * ks_w + k2  ];
+						max = max > t ? max : t;
+					}}
 					*(D_OUT_Ptr +
-							c * D_OUT->H * D_OUT->W +
-							(h/ks_h) * D_OUT->W +
-							(w/ks_w)
-					) = max;
+					  c * D_OUT->H * D_OUT->W +
+					  h * D_OUT->W +
+					  w) = max;
 					LAYER->FOOTPRINT++;
-				}
-				w=0;
-			}
-			h=0;
-			temp=0;
+				}w=0;
+			}h=0;
 		}
+
 }
 
 #endif /* HEADERS_NONLINEAR_H_ */

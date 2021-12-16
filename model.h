@@ -17,10 +17,8 @@
  * Weight : 84KB
  * */
 
-#include"Parameters/conv1.h"
-
-#include"Parameters/conv2.h"
-
+#include <Parameters/conv1_dummy.h>
+#include <Parameters/conv2_dummy.h>
 #include"Parameters/fc1.h"
 
 #include"Parameters/fc2.h"
@@ -33,9 +31,9 @@ _q15 result[10]={[0 ... 9]=0};
 #pragma PERSISTENT(temp_i)
 _q15 temp_i[5][784]={[0 ... 4][0 ... 783]=0x1000};
 
-#pragma location = 0x1A5CC
+//#pragma location = 0x1A5C
 #pragma PERSISTENT(BUFF)
-_q15 BUFF[30][576]={[0 ... 29][0 ... 575]=0};
+_q15 BUFF[30][576]={[0 ... 29][0 ... 575]=25};
 
 
 #pragma PERSISTENT(network)
